@@ -51,7 +51,7 @@ $reqHandler->setParameter("total_fee", "2");
 $reqHandler->setParameter("refund_fee", "1");
 $reqHandler->setParameter("op_user_id", "1900000109");
 //操作员密码,MD5处理
-$reqHandler->setParameter("op_user_passwd", md5("111111"));
+$reqHandler->setParameter("op_user_passwd", md5("111111"));		
 //接口版本号,取值1.1
 $reqHandler->setParameter("service_version", "1.1");
 
@@ -79,28 +79,28 @@ if($httpClient->call()) {
 	if($resHandler->isTenpaySign() && $resHandler->getParameter("retcode") == "0" ) {
 		//取结果参数做业务处理
 		//商户订单号
-		$out_trade_no = $resHandler->getParameter("out_trade_no");
+		$out_trade_no = $resHandler->getParameter("out_trade_no");	
 		//财付通订单号
-		$transaction_id = $resHandler->getParameter("transaction_id");
+		$transaction_id = $resHandler->getParameter("transaction_id");	
 		//商户退款单号
-		$out_refund_no = $resHandler->getParameter("out_refund_no");
+		$out_refund_no = $resHandler->getParameter("out_refund_no");	
 		//财付通退款单号
-		$refund_id = $resHandler->getParameter("refund_id");
+		$refund_id = $resHandler->getParameter("refund_id");	
 		//退款金额,以分为单位
-		$refund_fee = $resHandler->getParameter("refund_fee");
+		$refund_fee = $resHandler->getParameter("refund_fee");		
 		//退款状态
 		$refund_status = $resHandler->getParameter("refund_status");
-
-
-
+		
+		
+		
 		echo "OK,refund_status=" . $refund_status . ",out_refund_no=" . $resHandler->getParameter("out_refund_no") . ",refund_fee=" . $resHandler->getParameter("refund_fee") . "<br>";
-
-
+		
+		
 	} else {
 		//错误时，返回结果可能没有签名，记录retcode、retmsg看失败详情。
 		echo "验证签名失败 或 业务错误信息:retcode=" . $resHandler->getParameter("retcode"). ",retmsg=" . $resHandler->getParameter("retmsg") . "<br>";
 	}
-
+	
 } else {
 	//后台调用通信失败
 	echo "call err:" . $httpClient->getResponseCode() ."," . $httpClient->getErrInfo() . "<br>";
